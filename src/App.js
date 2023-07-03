@@ -5,9 +5,6 @@ import * as dayjs from 'dayjs';
 import TodoInput from './components/TodoInput';
 import TodoList from './components/TodoList';
 import TodoMenu from './components/TodoMenu';
-import Uni from './img/uni_1.png';
-import Uni2 from './img/uni_2.png';
-import Uni3 from './img/uni_3.png';
 
 const S = {
   layout: styled.div`
@@ -67,6 +64,10 @@ function App() {
 
   // input submit
   const handleSubmit = (e) => {
+    if (value.trim() === '') {
+      alert('입력해주세요');
+      return;
+    }
     if (todoData.length >= 50) {
       alert('최대 10페이지 까지 입력이 가능합니다.');
       return clearInterval();
@@ -85,7 +86,7 @@ function App() {
     setPage(todoData.length >= 5 ? parseInt(todoData.length / 5 + 1) : 1); // 입력시 마지막 페이지로 지정
   };
 
-  // 드래깅
+  // 드래깅 인덱스 값 바꾸기
   const handleClick = useCallback(
     (id) => {
       let newTodoData = todoData.filter((data) => data.id !== id);
@@ -97,23 +98,20 @@ function App() {
 
   const completeFilter = () => {
     // 미완료 일정 보기
-    if (completed) {
-      const copy = [...todoData];
-      setTodoData(copy.filter((data) => !data.completed));
-    } else {
-      setTodoData(JSON.parse(localStorage.getItem('todoData')));
-    }
+    const copy = [...todoData];
+    completed
+      ? setTodoData(copy.filter((data) => !data.completed))
+      : setTodoData(JSON.parse(localStorage.getItem('todoData')));
     setCompleted(!completed);
     setPage(1);
   };
   const sortByDate = () => {
     // 날짜 내림차순 오름차순
     const date = [...todoData];
-    if (sortDate) {
-      date.sort((a, b) => new Date(a.date) - new Date(b.date));
-    } else {
-      date.sort((a, b) => new Date(b.date) - new Date(a.date));
-    }
+    sortDate
+      ? date.sort((a, b) => new Date(a.date) - new Date(b.date))
+      : date.sort((a, b) => new Date(b.date) - new Date(a.date));
+
     setTodoData(date);
     setSortDate(!sortDate);
   };
