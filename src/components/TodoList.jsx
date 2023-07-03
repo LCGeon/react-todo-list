@@ -53,11 +53,7 @@ const TodoList = ({
                   {(provided, snapshot) => (
                     <TodoListItem
                       key={data.id}
-                      id={data.id}
-                      title={data.title}
-                      date={data.date}
-                      completed={data.completed}
-                      importance={data.importance}
+                      data={data}
                       todoData={todoData}
                       setTodoData={setTodoData}
                       provided={provided}
