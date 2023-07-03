@@ -90,12 +90,8 @@ const S = {
   `,
 };
 const TodoListItem = ({
-  id,
-  title,
-  completed,
-  date,
+  data: { id, title, completed, date, importance },
   todoData,
-  importance,
   setTodoData,
   provided,
   snapshot,
@@ -112,9 +108,6 @@ const TodoListItem = ({
     });
     setTodoData(newTodoData);
     localStorage.setItem('todoData', JSON.stringify(newTodoData));
-  };
-  const handleEditChange = (e) => {
-    setEditedTitle(e.target.value);
   };
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -135,7 +128,10 @@ const TodoListItem = ({
         <S.list>
           <div>
             <form onSubmit={handleSubmit}>
-              <S.editInput value={editedTitle} onChange={handleEditChange} />
+              <S.editInput
+                value={editedTitle}
+                onChange={(e) => setEditedTitle(e.target.value)}
+              />
             </form>
           </div>
           <div>
