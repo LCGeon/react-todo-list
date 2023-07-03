@@ -48,6 +48,7 @@ const TodoMenu = ({
         {importantIconArray.map((data, index) => {
           return (
             <S.btn
+              key={data.id}
               onClick={() => filterByImportance(index + 1)}
               active={toggleNum === index + 1 && !toggleImportance}
             >
