@@ -39,21 +39,15 @@ const TodoInput = ({
   importance,
   setImportance,
 }) => {
-  const selectList = [1, 2, 3, 4];
-  const selectIcon = ['🔵', '🟢', '🟡', '🔥'];
+  const selectNum = [1, 2, 3, 4];
+  const selectIcons = ['🔵', '🟢', '🟡', '🔥'];
+
   const phrase = [
     '늦게 해도 돼요',
     '천천히 할게요',
     '신경 써야 돼요',
     '❗ 매우 중요해요 ❗',
   ];
-  const handleSelect = (e) => {
-    setImportance(e.target.value);
-  };
-
-  const inputValue = (e) => {
-    setValue(e.target.value);
-  };
   return (
     <form onSubmit={handleSubmit} style={{ width: '90%' }}>
       <S.box>
@@ -63,19 +57,19 @@ const TodoInput = ({
             fontWeight: 'bold',
             border: 'none',
           }}
-          onChange={handleSelect}
+          onChange={(e) => setImportance(e.target.value)}
           value={importance}
         >
-          {selectList.map((item, index) => (
+          {selectNum.map((item, index) => (
             <option value={item} key={item}>
-              {selectIcon[index]}
+              {selectIcons[index]}
               <span> {phrase[index]}</span>
             </option>
           ))}
         </select>
         <S.input
           type='text'
-          onChange={inputValue}
+          onChange={(e) => setValue(e.target.value)}
           value={value}
           placeholder='할 일을 입력해주세요 !'
         />
